@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, deque
 
 
 def count(text, pattern):
@@ -37,3 +37,39 @@ def get_frequent_pattern(text, length):
         elif leaderboard[subs] == largest_frequency_count:
             most_frequent_patterns.append(subs)
     return ' '.join(most_frequent_patterns)
+
+
+def get_reverse_complementary_seq(text):
+    '''
+        Input:
+            text:String(example:ACCGGGTTTT)
+        Output:
+            String:(example:AAAACCCGGT)
+    '''
+    nucleotide_dict = {
+        'A': 'T',
+        'T': 'A',
+        'C': 'G',
+        'G': 'C'
+    }
+    output_list = deque()
+    for nucleotide in text:
+        match = nucleotide_dict[nucleotide]
+        output_list.appendleft(match)
+    return ''.join(output_list)
+
+
+def find_starting_points_pattern(text, pattern):
+    '''
+        Input:
+            text:String(example:GATATATGCATATACTT)
+            pattern:String(example:ATAT)
+        Output:
+            List:(example:["1","3","9"])
+    '''
+    pattern_starting_point_list = []
+    for i in range(0, len(text)-len(pattern)):
+        subs = text[i:i+len(pattern)]
+        if subs == pattern:
+            pattern_starting_point_list.append(str(i))
+    return pattern_starting_point_list

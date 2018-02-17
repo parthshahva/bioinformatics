@@ -15,3 +15,14 @@ class TestApp(unittest.TestCase):
         length = 4
         output = functions.get_frequent_pattern(text, length)
         self.assertEqual(output, "GCAT CATG")
+
+    def test_reverse_complementary_sequence(self):
+        text = "AAAACCCGGT"
+        output = functions.get_reverse_complementary_seq(text)
+        self.assertEqual(output, "ACCGGGTTTT")
+
+    def test_find_starting_points_pattern(self):
+        text = "GATATATGCATATACTT"
+        pattern = "ATAT"
+        output = functions.find_starting_points_pattern(text, pattern)
+        self.assertEqual(output,["1","3","9"])
