@@ -73,3 +73,25 @@ def find_starting_points_pattern(text, pattern):
         if subs == pattern:
             pattern_starting_point_list.append(str(i))
     return pattern_starting_point_list
+
+def find_kmer_clumps(text, length, interval, repeats):
+    '''
+        Input:
+            text: String(Nucleotides)
+            length: Integer(Length of nucleotides)
+            interval: Integer(Distance over text)
+            repeats: Integer(Number required of that length over interval in text)
+        Output:
+            List: Matching strings of length that have defined number of repeats over defined interval in text
+
+    '''
+    pattern_matches = set()
+    for i in range(0, len(text)-interval):
+        potential_pattern_counts = defaultdict(lambda: 0)
+        for k in range(i,i+interval-length):
+            potential_pattern = text[k:k+length]
+            potential_pattern_counts[potential_pattern] += 1
+        for k,v in potential_pattern_counts.iteritems():
+            if v >= repeats:
+                pattern_matches.add(k)
+    return pattern_matches

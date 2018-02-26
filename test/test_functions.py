@@ -26,3 +26,13 @@ class TestApp(unittest.TestCase):
         pattern = "ATAT"
         output = functions.find_starting_points_pattern(text, pattern)
         self.assertEqual(output,["1","3","9"])
+
+    def test_find_kmer_clumps(self):
+        text = "CGGACTCGACAGATGTGAAGAACGACAATGTGAAGACTCGACACGACAGAGTGAAGAGAAGAGGAAACATTGTAA"
+        length = 5
+        interval = 50
+        repeats = 4
+        output = functions.find_kmer_clumps(text, length, interval, repeats)
+        self.assertEqual("CGACA" in output, True)
+        self.assertEqual("GAAGA" in output, True)
+        self.assertEqual(len(output), 2)
